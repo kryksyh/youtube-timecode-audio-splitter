@@ -8,6 +8,7 @@ from pydub import AudioSegment, MyAudioSegment
 import re
 import time
 from goldfinch import validFileName as vfn
+from config import YOUTUBE_API_KEY
 
 output_mp3 = ""
 
@@ -46,8 +47,7 @@ def_opts = {
 }
 
 def get_meta(link, regex):
-    DEVELOPER_KEY = 'AIzaSyBtMRXtzsKe5p-zwvDdhEpstxehs-_YgnQ'
-    youtube = build('youtube', 'v3', developerKey=DEVELOPER_KEY)
+    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
     ids = link.split('=')[-1]
     results = youtube.videos().list(id=ids, part='snippet').execute()
     meta = {}
@@ -139,7 +139,7 @@ def split(filename, meta):
 if __name__ == "__main__":
 
     def_regex = r"(?P<track>(?P<time>[\d\:]*)\s*-\s*(?P<artist>.*),\s*(?P<title>.*))"
-
+    def_regex = r"^(?P<track>(?P<time>[\d\:]*)\s*(?P<artist>.*)\s*?(\-|\()\s*?\s*(?P<title>.*)\n(?P<comments>.*))$"
     parser = argparse.ArgumentParser(description='Download music video and split into separate audio files using timecodes',
                                     formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('URL', metavar='url', type=str, nargs=1,
