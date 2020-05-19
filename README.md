@@ -1,7 +1,7 @@
 # youtube timecode audio splitter
 Download music video and split into separate audio files using timecodes.
 
-
+```
 usage: main.py [-h] [-r REGEX] [-f FORMAT] [-b BITRATE] url
 
 Download music video and split into separate audio files using timecodes
@@ -27,3 +27,4 @@ optional arguments:
                         output bitrate [192, 320, etc]
                         
                         
+```
